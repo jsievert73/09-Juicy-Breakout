@@ -1,9 +1,14 @@
 extends KinematicBody2D
 
 var new_ball = preload("res://Scenes/Ball.tscn")
+onready var Background = get_node("/root/World/Sound")
+var _endpoint = position
 
 func _ready():
  set_process_input(true)
+ position.y = 25
+ $Tween.interpolate_property(self, "position", position, _endpoint, 1.2, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+ $Tween.start()
 
 func _physics_process(delta):
  var mouse_x = get_viewport().get_mouse_position().x

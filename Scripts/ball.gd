@@ -1,6 +1,9 @@
 extends RigidBody2D
 
 export var maxspeed = 300
+onready var TileSound = get_node("/root/World/Sound3")
+onready var WallSound = get_node("/root/World/Sound2")
+onready var BallSprite = get_node("/root/World/Ball/CanvasItem/Modulate")
 
 signal lives
 signal score
@@ -18,8 +21,12 @@ func _physics_process(delta):
   if body.is_in_group("Tiles"):
    emit_signal("score",body.score)
    body.queue_free()
+   TileSound.play()
   if body.get_name() == "Paddle":
-   pass
+   WallSound.play()
+  else:
+   WallSound.play()
+  pass
   
  if position.y > get_viewport_rect().end.y:
   emit_signal("lives")
